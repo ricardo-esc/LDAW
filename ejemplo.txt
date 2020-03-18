@@ -1,11 +1,6 @@
 Hola amigos, bienvenidos. Los amo. Lalo
 Hola amistes espero que si podamos acabar todo, saludos, Rick
-<<<<<<< HEAD
-Hola amixes. Lista para valer madres pero el trabajo al 100% saludos cali2, ladomerents
-=======
 No esta la parte de Dome
 
 Este es un cambio desde mi rama. -Lalo
 Este es el cambio correcto.
->>>>>>> a4e664e4fb4258a4c8c0e502932bb991ba530a33
-
