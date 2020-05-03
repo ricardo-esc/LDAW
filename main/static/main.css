@@ -31,6 +31,18 @@ body {
     border-radius: 3px;
     margin-bottom: 20px;
   }
+
+  .content-event {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    -moz-box-shadow: 10px 10px 5px #ccc;
+    -webkit-box-shadow: 10px 10px 5px #ccc;
+    box-shadow: 7px 7px 5px #ccc;
+    border-radius: 20px;
+  }
   
   .article-title {
     color: #444444;
@@ -44,10 +56,21 @@ body {
   .article-content {
     white-space: pre-line;
   }
+
+  .article-content-description {
+    white-space: pre-line;
+    text-align: center;
+  }
   
   .article-img {
     height: 65px;
     width: 65px;
+    margin-right: 16px;
+  }
+
+  .event-img {
+    height: 400px;
+    width: 400px;
     margin-right: 16px;
   }
   
@@ -55,6 +78,14 @@ body {
     padding-bottom: 1px;
     margin-bottom: 4px;
     border-bottom: 1px solid #e3e3e3
+  }
+
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 8px;
   }
   
   .article-metadata a:hover {
@@ -77,4 +108,18 @@ body {
   
   .account-heading {
     font-size: 2.5rem;
+  }
+
+  .column {
+    float: left;
+    width: 50%;
+    white-space: pre-line;
+    padding: 14px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
   }

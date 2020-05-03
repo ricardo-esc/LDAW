@@ -3,8 +3,8 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from main import app, db, bcrypt
-from main.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
-from main.models import User, Post
+from main.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, EventoForm
+from main.models import User, Post, Evento
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -12,7 +12,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/home")
 def home():
     posts = Post.query.all()
-    return render_template('home.html', posts=posts)
+    events = Evento.query.all()
+    return render_template('home.html', posts=posts, events=events)
 
 
 @app.route("/about")
@@ -101,6 +102,18 @@ def new_post():
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
     return render_template('create_post.html', title='Registrar Nuevo Evento', form=form, legend='Registrar Nuevo Evento')
+
+@app.route('/evento/registar', methods=['GET', 'POST'])
+@login_required
+def new_event():
+    form = EventoForm()
+    if form.validate_on_submit():
+        evento = Evento(Nombre=form.nombre.data, Siglas=form.siglas.data, Decripcion=form.descripcion.data, Duracion=form.duracion.data, Cupo=form.asistentes.data, Costo=form.costo.data, Lugar=form.lugar.data, Fecha=form.fecha.data, imagen=form.imagen.data, empleado=current_user)
+        db.session.add(evento)
+        db.session.commit()
+        flash('¡Se ha creado el evento!', 'success')
+        return redirect(url_for('home'))
+    return render_template('registrar_evento.html', title='Registrar Nuevo Evento', form=form)
 
 @app.route('/post/<int:post_id>')
 def post(post_id):

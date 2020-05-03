@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from main.models import User
 
@@ -59,4 +59,16 @@ class UpdateAccountForm(FlaskForm):
 class PostForm(FlaskForm):
     title= StringField('Nombre', validators=[DataRequired()])
     content = TextAreaField('Descripcion', validators=[DataRequired()])
+    submit = SubmitField('Registrar Evento')
+
+class EventoForm(FlaskForm):
+    nombre= StringField('Nombre Evento', validators=[DataRequired()])
+    siglas= StringField('Siglas', validators=[DataRequired()])
+    descripcion= TextAreaField('Descripcion', validators=[DataRequired()])
+    duracion= StringField('Duracion', validators=[DataRequired()])
+    asistentes= IntegerField('Numero Asistentes', validators=[DataRequired()])
+    costo= IntegerField('Costo', validators=[DataRequired()])
+    lugar= StringField('Lugar', validators=[DataRequired()])
+    fecha = DateField('Fecha', validators=[DataRequired()])
+    imagen = StringField('Imagen', validators=[DataRequired()])
     submit = SubmitField('Registrar Evento')
