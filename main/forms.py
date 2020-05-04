@@ -10,6 +10,11 @@ class RegistrationForm(FlaskForm):
                             validators=[DataRequired(), Length(min=2,max=20)])
     email = StringField('Correo',
                             validators=[DataRequired(), Email()])
+    nombreCompleto = StringField('Nombre Completo',validators=[DataRequired()] )
+    numTelefono = StringField('Telefono',validators=[DataRequired()] )
+    edad = IntegerField('Edad', validators=[DataRequired()])
+    residencia = StringField('Lugar de Residencia',validators=[DataRequired()] )
+    empresa = StringField('Empresa', validators=[DataRequired()])
     password = PasswordField('Contraseña', validators=[DataRequired()])
     confirm_password = PasswordField('Confirmar Contraseña', 
                             validators=[DataRequired(), EqualTo('password')])

@@ -28,7 +28,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password, nombreCompleto=form.nombreCompleto.data, numTelefono=form.numTelefono.data, edad=form.edad.data, residencia=form.residencia.data, empresa=form.empresa.data)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
@@ -74,6 +74,7 @@ def save_picture(form_picture):
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
+    users = User.query.all()
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -89,7 +90,7 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
+                           image_file=image_file, form=form,users=users)
 
 @app.route('/post/new', methods=['GET', 'POST'])
 @login_required
@@ -108,8 +109,8 @@ def new_post():
 def new_event():
     form = EventoForm()
     if form.validate_on_submit():
-        evento = Evento(Nombre=form.nombre.data, Siglas=form.siglas.data, Decripcion=form.descripcion.data, Duracion=form.duracion.data, Cupo=form.asistentes.data, Costo=form.costo.data, Lugar=form.lugar.data, Fecha=form.fecha.data, imagen=form.imagen.data, empleado=current_user)
-        db.session.add(evento)
+        event = Evento(Nombre=form.nombre.data, Siglas=form.siglas.data, Decripcion=form.descripcion.data, Duracion=form.duracion.data, Cupo=form.asistentes.data, Costo=form.costo.data, Lugar=form.lugar.data, Fecha=form.fecha.data, imagen=form.imagen.data, empleado=current_user)
+        db.session.add(event)
         db.session.commit()
         flash('¡Se ha creado el evento!', 'success')
         return redirect(url_for('home'))
@@ -119,6 +120,14 @@ def new_event():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, post=post)
+
+
+@app.route('/evento/<int:evento_id>')
+def evento(evento_id):
+    event = Evento.query.get_or_404(evento_id)
+    return render_template('evento.html', event=event)
+
+ 
 
 @app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
 @login_required
@@ -149,3 +158,28 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
+
+
+@app.route("/evento/<int:evento_id>/borrar", methods=['POST'])
+@login_required
+def borrar_evento(evento_id):
+    evento = Evento.query.get_or_404(evento_id)
+    if evento.empleado != current_user:
+        abort(403)
+    db.session.delete(evento)
+    db.session.commit()
+    flash('¡El evento ha sido eliminado con éxito!', 'success')
+    return redirect(url_for('home'))
+
+@app.route('/user/delete', methods=['GET', 'POST'])
+@login_required
+def borrar_usuario():
+    User.query.filter_by(id=2).delete()
+    db.session.commit()
+    flash('Cuenta borrada exitosamente', 'success')
+    return redirect(url_for('home'))
+
+
+
+
+

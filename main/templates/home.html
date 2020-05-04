@@ -6,8 +6,7 @@
             <div class="media-body">
                 <img class="center" max-width="50vw" height="auto" width="90%" src="{{ event.imagen }}">
                 <br>
-              <h2>{{ event.Nombre }}</h2>
-             
+              <h2><a class="article-title" href="{{ url_for('evento', evento_id=event.idEvento) }}">{{ event.Nombre }}</a></h2>             
               <div class="row">
                 <div class="column">
                   <p class="article-content"><strong>Duracion:</strong> {{ event.Duracion }}</p> 
@@ -24,4 +23,5 @@
             
           </article>
     {% endfor %}
+
 {% endblock content %}
