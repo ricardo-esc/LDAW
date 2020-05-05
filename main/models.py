@@ -59,4 +59,4 @@ class Boleto(db.Model):
     imagen = db.Column(db.String(50), nullable=False, default='default.jpg')
 
     def __repr__(self):
-        return f"Evento('{self.Folio}','{self.Fecha}','{self.Asiento}')"
+        return f"Boleto('{self.folio}','{self.Fecha}','{self.asiento}')"

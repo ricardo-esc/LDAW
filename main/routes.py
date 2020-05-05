@@ -16,10 +16,6 @@ def home():
     return render_template('home.html', posts=posts, events=events)
 
 
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
-
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -141,6 +137,14 @@ def comprar_evento(evento_id):
         return redirect(url_for('home'))
     else:
         return render_template('boleto.html', event=event,form=form)
+
+@app.route("/Boletos")
+@login_required
+def about():
+    tickets = Boleto.query.filter_by(user_id=current_user.id).all()
+    events = Evento.query.all()
+
+    return render_template('about.html', title='Mis Boletos', tickets=tickets, events=events)
 
  
 
