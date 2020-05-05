@@ -3,8 +3,8 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from main import app, db, bcrypt
-from main.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, EventoForm
-from main.models import User, Post, Evento
+from main.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, EventoForm, BoletoForm
+from main.models import User, Post, Evento, Boleto
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -15,10 +15,6 @@ def home():
     events = Evento.query.all()
     return render_template('home.html', posts=posts, events=events)
 
-
-@app.route("/about")
-def about():
-    return render_template('about.html', title='About')
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -126,6 +122,29 @@ def post(post_id):
 def evento(evento_id):
     event = Evento.query.get_or_404(evento_id)
     return render_template('evento.html', event=event)
+
+@app.route('/evento/comprar/<int:evento_id>', methods=['GET', 'POST'])
+@login_required
+def comprar_evento(evento_id):
+    form = BoletoForm()
+    event = Evento.query.get_or_404(evento_id)
+    if form.validate_on_submit():
+        boleto = Boleto(asiento=form.asiento.data, cantidad=form.cantidad.data, user_id=current_user.id, idEvento=evento_id)
+        event.Cupo=(event.Cupo - form.cantidad.data)
+        db.session.add(boleto)
+        db.session.commit()
+        flash('¡Se ha realizado la compra!', 'success')
+        return redirect(url_for('home'))
+    else:
+        return render_template('boleto.html', event=event,form=form)
+
+@app.route("/Boletos")
+@login_required
+def about():
+    tickets = Boleto.query.filter_by(user_id=current_user.id).all()
+    events = Evento.query.all()
+
+    return render_template('about.html', title='Mis Boletos', tickets=tickets, events=events)
 
  
 

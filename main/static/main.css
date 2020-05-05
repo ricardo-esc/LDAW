@@ -7,6 +7,10 @@ body {
   h1, h2, h3, h4, h5, h6 {
     color: #444444;
   }
+
+  h2{
+    text-align: center;
+  }
   
   .bg-steel {
     background-color: #143146;
@@ -33,6 +37,19 @@ body {
   }
 
   .content-event {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    -moz-box-shadow: 10px 10px 5px #ccc;
+    -webkit-box-shadow: 10px 10px 5px #ccc;
+    box-shadow: 7px 7px 5px #ccc;
+    border-radius: 20px;
+    
+  }
+
+  .content-boleto {
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
