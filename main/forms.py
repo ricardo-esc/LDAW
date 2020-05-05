@@ -74,6 +74,11 @@ class EventoForm(FlaskForm):
     asistentes= IntegerField('Numero Asistentes', validators=[DataRequired()])
     costo= IntegerField('Costo', validators=[DataRequired()])
     lugar= StringField('Lugar', validators=[DataRequired()])
-    fecha = DateField('Fecha', validators=[DataRequired()])
+    fecha = DateField('Fecha', validators=[DataRequired()],format='%Y-%m-%d %H:%M:%S')
     imagen = StringField('Imagen', validators=[DataRequired()])
     submit = SubmitField('Registrar Evento')
+
+class BoletoForm(FlaskForm):
+    asiento = StringField('Asiento(s)', validators=[DataRequired()])
+    cantidad = IntegerField('Cantidad de Boletos', validators=[DataRequired()])
+    submit = SubmitField('Comprar Boleto(s)')
