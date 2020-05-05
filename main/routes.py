@@ -137,7 +137,7 @@ def comprar_evento(evento_id):
         event.Cupo=(event.Cupo - form.cantidad.data)
         db.session.add(boleto)
         db.session.commit()
-        flash('¡Se ha creado el evento!', 'success')
+        flash('¡Se ha realizado la compra!', 'success')
         return redirect(url_for('home'))
     else:
         return render_template('boleto.html', event=event,form=form)
