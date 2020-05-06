@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField, DateField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField
+from wtforms.fields.html5 import DateField, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from main.models import User
 
 class RegistrationForm(FlaskForm):
@@ -67,18 +68,25 @@ class PostForm(FlaskForm):
     submit = SubmitField('Registrar Evento')
 
 class EventoForm(FlaskForm):
-    nombre= StringField('Nombre Evento', validators=[DataRequired()])
+    nombre= StringField('Nombre del evento', validators=[DataRequired()])
     siglas= StringField('Siglas', validators=[DataRequired()])
-    descripcion= TextAreaField('Descripcion', validators=[DataRequired()])
-    duracion= StringField('Duracion', validators=[DataRequired()])
-    asistentes= IntegerField('Numero Asistentes', validators=[DataRequired()])
-    costo= IntegerField('Costo', validators=[DataRequired()])
+    descripcion= TextAreaField('Descripción', validators=[DataRequired()])
+    duracion= StringField('Duración (minutos)', validators=[DataRequired()])
+    asistentes= IntegerField('Numero de asistentes', validators=[DataRequired()])
+    costo= IntegerField('Costo (número entero)', validators=[DataRequired()])
     lugar= StringField('Lugar', validators=[DataRequired()])
-    fecha = DateField('Fecha', validators=[DataRequired()],format='%Y-%m-%d %H:%M:%S')
+    fecha = DateField('Fecha', validators=[DataRequired()],format='%Y-%m-%d')
     imagen = StringField('Imagen', validators=[DataRequired()])
     submit = SubmitField('Registrar Evento')
 
 class BoletoForm(FlaskForm):
     asiento = StringField('Asiento(s)', validators=[DataRequired()])
-    cantidad = IntegerField('Cantidad de Boletos', validators=[DataRequired()])
+    cantidad = IntegerField('Cantidad de Boletos (Max. 5)', validators=[DataRequired(), NumberRange(max=5, min=1)])
+    #cantidad = SelectField('cantidad', choices = [(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5')])
     submit = SubmitField('Comprar Boleto(s)')
+
+
+
+
+
+
