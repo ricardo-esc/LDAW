@@ -26,7 +26,7 @@ Para hacer uso de esta API REST, es necesario contar con una versión de **Pytho
 Con el siguiente comando, se puede verificar la versión de Python con la que se cuenta:
  
 ```python
- python --version
+$ python3 --version
 ```
 #### 2. Vitual Environment
 
