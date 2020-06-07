@@ -60,8 +60,8 @@ Ingrese al [localhost:500](http://127.0.0.1:5000/) para ver la API
 ## Migraciones
 Cada vez que el modelo de la base de datos cambia, es necesario hacer los siguientes comandos:
 ```python
-$ flask db migrate -m "Nombre de la migration"
-$ flask db upgrade
+(dolarick) $ flask db migrate -m "Nombre de la migration"
+(dolarick) $ flask db upgrade
 ```
 ## Licencia
 huachipato 2020 salu2
