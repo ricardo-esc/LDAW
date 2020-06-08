@@ -36,9 +36,9 @@
             <!-- Navbar Right Side -->
              <div class="navbar-nav">
               {% if "email" in session %}
-              <a class="nav-item nav-link" href="{{ url_for('about')}}">Login</a>
-              <a class="nav-item nav-link" href="{{ url_for('about')}}">Registrar Usuario</a>
-              
+              <a class="nav-item nav-link" href="{{ url_for('account')}}">Account</a>
+              <a class="nav-item nav-link" href="{{ url_for('new_event')}}">Nuevo Evento</a>
+              <a class="nav-item nav-link" href="{{ url_for('logout')}}">Logout</a>
               {% else %}
               <a class="nav-item nav-link" href="{{ url_for('login')}}">Login</a>
               <a class="nav-item nav-link" href="{{ url_for('register')}}">Registrar Usuario</a>

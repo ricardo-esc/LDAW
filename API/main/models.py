@@ -29,7 +29,7 @@ class User(db.Model, UserMixin):
     eventos = db.relationship('Evento', backref='empleado', lazy =True)
 
     def __repr__(self):
-        return f"User('{self.username}','{self.email}','{self.image_file}')"
+        return f"User('{self.username}','{self.email}','{self.image_file}',{self.id})"
 
 # class UserSchema(marsh.Schema):
 #     class Meta:
@@ -94,11 +94,11 @@ class Boleto(db.Model):
     imagen = db.Column(db.String(50), nullable=False, default='default.jpg')
 
     def __repr__(self):
-        return f"Boleto('{self.folio}','{self.Fecha}','{self.asiento}')"
+        return f"Boleto('{self.folio}','{self.Fecha}','{self.cantidad}'"
 
 class BoletoSchema(marsh.Schema):
     class Meta:
         fields = ('folio','user_id','idEvento','Fecha','cantidad','imagen')
 
 boletoSchema = BoletoSchema()
-boletosSchema = BoletoSchema()
+boletosSchema = BoletoSchema(many=True)

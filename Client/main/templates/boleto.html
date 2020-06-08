@@ -26,20 +26,9 @@
                 <form method="POST" action="">
                         {{ form.hidden_tag() }}
                         <fieldset class="form-group">
+                                <p class="article-content"> Tus Asientos seran asignados automaticamente por el sistema</p>
 
-                            <div class="form-group">
-                                {{ form.asiento.label(class="form-control-label") }}
-                                {% if form.asiento.errors %}
-                                {{ form.asiento(class="form-control form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.asiento.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {{ form.asiento(class="form-control form-control-lg") }}
-                                {% endif %}
-                            </div>
+                            
 
                             <div class="form-group">
                                 {{ form.cantidad.label(class="form-control-label") }}

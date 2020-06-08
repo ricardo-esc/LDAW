@@ -17,14 +17,13 @@
                   <p class="article-content"><strong>Lugar:</strong> {{ event.Lugar }}</p>
               </div>
               <div class="column">
-                <p class="article-content"><strong>Fecha del Evento:</strong> {{ event.Fecha.strftime('%a, %B %d') }}</p>
+                <p class="article-content"><strong>Fecha del Evento:</strong> {{ event.Fecha}}</p>
               </div>
             </div> 
             
               <div class="row">
                   <div class="column">
                       <p class="article-content"><strong>Folio:</strong> {{ ticket.folio }}</p>
-                      <p class="article-content"><strong>Asiento(s):</strong> {{ ticket.asiento }}</p>
                   </div>
                   <div class="column">
                       <p class="article-content"><strong>Siglas:</strong> {{ event.Siglas }}</p>
