@@ -42,8 +42,10 @@ Para activar el Virtual Environment, use el siguiente comando:
 $ source dolarick/bin/activate
 ```
 
-Vas a hacer uso de dos terminales.
-En la primera terminal, posicíonate en el carpeta de API.
+Vas a hacer uso de dos terminales.  
+
+En la primera terminal, posicíonate en el carpeta de API.    
+
 Para correr dolarick, usar el siguiente comando:
 ```python
 (dolarick) $ python run.py
@@ -58,8 +60,7 @@ Para correr dolarick, usar el siguiente comando:
  * Debugger is active!
  * Debugger PIN: 255-376-821
 ```
-En la segunda terminal, posicíonate en el carpeta de Cliente
-y corre el siguiente comando:
+En la segunda terminal, posicíonate en el carpeta de Cliente y corre el siguiente comando:
 
 ```python
 (dolarick) $ python run.py
@@ -74,7 +75,8 @@ y corre el siguiente comando:
  * Debugger PIN: 255-376-821
 ```
 
-Ingrese al [localhost:80](http://127.0.0.1:80/) para ver la API
+Ingrese al [localhost:80](http://127.0.0.1:80/) para ver la API  
+
 Ingrese al [localhost:5000](http://127.0.0.1:5000/events) para ver la vista cliente
 
 ## Migraciones
