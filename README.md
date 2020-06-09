@@ -75,9 +75,9 @@ En la segunda terminal, posicíonate en el carpeta de Cliente y corre el siguien
  * Debugger PIN: 255-376-821
 ```
 
-Ingrese al [localhost:80](http://127.0.0.1:80/) para ver la API  
+Ingrese al [localhost:80](http://127.0.0.1:80/) para ver la vista Cliente  
 
-Ingrese al [localhost:5000](http://127.0.0.1:5000/events) para ver la vista cliente
+Ingrese al [localhost:5000](http://127.0.0.1:5000/events) para ver el JSON
 
 ## Migraciones
 Cada vez que el modelo de la base de datos cambia, es necesario hacer los siguientes comandos:
