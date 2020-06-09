@@ -1,11 +1,14 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, abort, jsonify,session
+from flask import render_template, url_for, flash, redirect, request, abort, jsonify,session, render_template, make_response
+import pdfkit
+import flaskpdf
 import requests,json
 from main import app
 from main.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, EventoForm, BoletoForm
 from datetime import datetime
+from flask_http_response import success, result, error
 
 
 @app.route("/")
@@ -34,6 +37,8 @@ def register():
         response = requests.post("http://127.0.0.1:5000/register",json=post_data)
         if response.status_code == 200:
             return redirect(url_for('login'))
+        elif response.status_code==409:
+            flash('¡Ya existe un usuario con ese usuario y/o correo!', 'danger')
     return render_template('register.html', title='Register', form=form)
 
 
@@ -171,7 +176,8 @@ def about():
         events = requests.get("http://127.0.0.1:5000/events")
 
         return render_template('about.html', title='Mis Boletos', tickets=tickets.json(), events=events.json())
-    return render_template('login.html', title='Login', form=form)
+    else:
+        return redirect(url_for('login'))
 
  
 @app.route("/evento/<int:evento_id>/borrar", methods=['POST'])
@@ -188,13 +194,14 @@ def borrar_evento(evento_id):
         return redirect(url_for('login'))
 
 
-
-
-
-
-
-
-
+@app.route('/pdf')
+def pdf_template():
+    if 'email' in session:
+        pdf = pdfkit.from_url('http://127.0.0.1:80/Boletos', False)
+        response = make_response(pdf)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+        return response
 
 
 

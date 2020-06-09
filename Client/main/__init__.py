@@ -7,11 +7,13 @@ from flask_restful import Resource, Api
 from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
 from flask import session
+import flaskpdf
+
 
 app = Flask(__name__)
 
 app.secret_key = "hello"
-
+flaskpdf.init_app(app)
 
 
 from main import routes
