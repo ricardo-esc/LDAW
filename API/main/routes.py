@@ -33,12 +33,20 @@ def register():
     empresa = request.json['empresa']
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    user = User.query.filter_by(username=username).first()
+    if user:
+        return jsonify({'message':'That user already exists!'}),409
     
-    user = User(username=username, email=email,password=hashed_password, nombreCompleto=nombreCompleto, numTelefono=numTelefono, edad=edad, residencia=residencia, empresa=empresa)
-    db.session.add(user)
-    db.session.commit()
-       
-    return jsonify({'message':'The user has been registered!'},200)
+    user1 = User.query.filter_by(email=email).first()
+    if user1:
+        return jsonify({'message':'That email already exists!'}),409
+    if not user and not user1:
+        user = User(username=username, email=email,password=hashed_password, nombreCompleto=nombreCompleto, numTelefono=numTelefono, edad=edad, residencia=residencia, empresa=empresa)
+        db.session.add(user)
+        db.session.commit()
+        
+        return jsonify({'message':'The user has been registered!'}),200
 
 @app.route('/evento/registrar', methods=['POST'])
 def new_event():
@@ -61,7 +69,7 @@ def new_event():
     db.session.add(event)
     db.session.commit()
 
-    return jsonify({'message':'The event has been registered!'},200)
+    return jsonify({'message':'The event has been registered!'}),200
 
 @app.route('/evento/<int:evento_id>',methods=['GET'])
 def evento(evento_id):
@@ -82,7 +90,7 @@ def comprar_evento(evento_id):
         event.Cupo=(event.Cupo - cantidad)
         db.session.add(boleto)
         db.session.commit()
-        return jsonify({'message':'The event has been bought!'},200)
+        return jsonify({'message':'You have bought your tickets!'}),200
 
 @app.route("/boletos", methods=['GET'])
 def boletos():
@@ -92,7 +100,6 @@ def boletos():
 
     result_tickets = boletosSchema.dump(tickets)
     result_events = eventosSchema.dump(events)
-
 
     return jsonify(result_tickets)
 
@@ -104,11 +111,11 @@ def borrar_evento(evento_id):
     user = User.query.get_or_404(user_id)
 
     if evento.user_id != user.id:
-        abort(403)
+        return jsonify({'message':'You did not created this event!'}),403
     db.session.delete(evento)
     db.session.commit()
 
-    return jsonify({'message':'The event has been deleted!'},200)
+    return jsonify({'message':'The event has been deleted!'}),200
 
 @app.route("/login", methods=['POST'])
 def login():
@@ -123,6 +130,11 @@ def login():
         return {
                 'message': 'Successful logged in','email':str(email), 'id':int(user.id), 'username':str(user.username)
             }, 200
+    else:
+        return {
+                'message': 'Invalid Credentials!'
+            }, 401
+
 
     
 @app.route("/account", methods=['POST'])
