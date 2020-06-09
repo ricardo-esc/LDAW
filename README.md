@@ -300,10 +300,10 @@ Registrar usuario.
 
 ```
 {
-	"username":1,
-	"email":"prueba@hotmail.com",
-	"password":"1234",
-	"nombreCompleto" : "Prueba 123",
+    "username":1,
+    "email":"prueba@hotmail.com",
+    "password":"1234",
+    "nombreCompleto" : "Prueba 123",
     "numTelefono" : "4445678909",
     "edad" : 18,
     "residencia" : "Queretaro",
@@ -334,7 +334,7 @@ Registro de un evento nuevo
 
 ```
 {
-	"Nombre" : "Danna Paola",
+    "Nombre" : "Danna Paola",
     "Siglas" : "DP",
     "Descripcion" : "Danna Paola en Concierto",
     "Duracion" : "120 minutos",
@@ -357,8 +357,8 @@ Compra de un boleto de evento registrado
 
 ```
 {
-	"cantidad" : 1,
-	"user_id":1
+  "cantidad" : 1,
+  "user_id":1
     
 }
 ```
@@ -373,7 +373,7 @@ Mensaje de éxito
 #### POST /evento/id/borrar
 ```
 {
-	"user_id":1
+  "user_id":1
 }
 ```
 Mensaje de éxito
@@ -393,8 +393,8 @@ Realizar un login
 
 ```
 {
-	"email":"a@b.com",
-	"password":"0210"
+  "email":"a@b.com",
+  "password":"0210"
 }
 ```
 Login exitoso
@@ -417,10 +417,10 @@ Login no exitoso
 Se utiliza para actualizar la información de la cuenta
 ```
 {
-	"email":"a@b.com",
-	"username":"ric.esc98",
-	"user_id":1
-	}
+  "email":"a@b.com",
+  "username":"ric.esc98",
+  "user_id":1
+}
 ```
 Actualización exitosa
 ```
