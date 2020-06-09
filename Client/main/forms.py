@@ -80,7 +80,6 @@ class EventoForm(FlaskForm):
     submit = SubmitField('Registrar Evento')
 
 class BoletoForm(FlaskForm):
-    asiento = StringField('Asiento(s)', validators=[DataRequired()])
     cantidad = IntegerField('Cantidad de Boletos (Max. 5)', validators=[DataRequired(), NumberRange(max=8, min=1)])
     #cantidad = SelectField('cantidad', choices = [(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5')])
     submit = SubmitField('Comprar Boleto(s)')

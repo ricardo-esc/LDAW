@@ -34,6 +34,8 @@ def register():
         response = requests.post("http://127.0.0.1:5000/register",json=post_data)
         if response.status_code == 200:
             return redirect(url_for('login'))
+        elif response.status_code==409:
+            flash('¡Ya existe un usuario con ese usuario y/o correo!', 'danger')
     return render_template('register.html', title='Register', form=form)
 
 
@@ -169,6 +171,7 @@ def about():
         }
         tickets =  requests.get("http://127.0.0.1:5000/boletos",json=post_data)
         events = requests.get("http://127.0.0.1:5000/events")
+        print(tickets)
 
         return render_template('about.html', title='Mis Boletos', tickets=tickets.json(), events=events.json())
     return render_template('login.html', title='Login', form=form)
