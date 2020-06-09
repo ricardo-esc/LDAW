@@ -94,7 +94,7 @@ Regresa la lista de eventos registrados en Dolarick
 
 Respuesta de ejemplo  [GET /events](http://127.0.0.1:5000/events)
 
-```
+```json
 [
   {
     "Costo": 123, 
@@ -142,7 +142,7 @@ Regresa la lista de usuarios registrados en Dolarick
 
 Respuesta de ejemplo  [GET /user](http://127.0.0.1:5000/user)
 
-```
+```json
 [
   {
     "edad": null, 
@@ -245,7 +245,8 @@ Regresa el evento con el id enviado
 
 Respuesta de ejemplo  [GET /evento/1](http://127.0.0.1:5000/evento/1)
 
-```{
+```json
+{
   "Costo": 123, 
   "Cupo": 100, 
   "Duracion": "123", 
@@ -265,7 +266,7 @@ Regresa los boletos del Usuario
 
 Respuesta de ejemplo  __GET /Boletos__
 
-```
+```json
 [
   {
     "Fecha": "2020-05-05T20:34:44.889983",
@@ -298,7 +299,7 @@ Respuesta de ejemplo  __GET /Boletos__
 #### POST /register
 Registrar usuario.  
 
-```
+```json
 {
     "username":1,
     "email":"prueba@hotmail.com",
@@ -311,7 +312,7 @@ Registrar usuario.
 }
 ```
 Se regresa un mensaje al terminar.
-```
+```json
 [
   {
     "message": "The user has been registered!"
@@ -320,7 +321,7 @@ Se regresa un mensaje al terminar.
 ]
 ```
 En caso de que el usuario ya exista, se envía el siguiente mensaje:
-```
+```json
 [
   {
     "message": "That user already exists!"
@@ -332,7 +333,7 @@ En caso de que el usuario ya exista, se envía el siguiente mensaje:
 #### POST /evento/registrar
 Registro de un evento nuevo
 
-```
+```json
 {
     "Nombre" : "Danna Paola",
     "Siglas" : "DP",
@@ -347,7 +348,7 @@ Registro de un evento nuevo
 }
 ```
 Mensaje de éxito
-```
+```json
 {
   "message": "The event has been registered!"
 }
@@ -355,7 +356,7 @@ Mensaje de éxito
 #### POST /evento/comprar/id_evento
 Compra de un boleto de evento registrado
 
-```
+```json
 {
   "cantidad" : 1,
   "user_id":1
@@ -363,7 +364,7 @@ Compra de un boleto de evento registrado
 }
 ```
 Mensaje de éxito
-```
+```json
 [
   {
     "message": "You have bought your tickets!"
@@ -371,19 +372,19 @@ Mensaje de éxito
 ]
 ```
 #### POST /evento/id/borrar
-```
+```json
 {
   "user_id":1
 }
 ```
 Mensaje de éxito
-```
+```json
 {
   "message": "The event has been deleted!"
 }
 ```
 En caso de que tu usuario no haya creado ese evento, se despliega el siguiente mensaje
-```
+```json
 {
   "message": "You did not crete this event!"
 }
@@ -391,14 +392,14 @@ En caso de que tu usuario no haya creado ese evento, se despliega el siguiente m
 #### POST /login
 Realizar un login
 
-```
+```json
 {
   "email":"a@b.com",
   "password":"0210"
 }
 ```
 Login exitoso
-```
+```json
 {
   "email": "a@b.com",
   "id": 1,
@@ -407,7 +408,7 @@ Login exitoso
 }
 ```
 Login no exitoso
-```
+```json
 {
   "message": "Invalid credentials",
 }
@@ -415,7 +416,7 @@ Login no exitoso
 
 #### POST /account
 Se utiliza para actualizar la información de la cuenta
-```
+```json
 {
   "email":"a@b.com",
   "username":"ric.esc98",
@@ -423,7 +424,7 @@ Se utiliza para actualizar la información de la cuenta
 }
 ```
 Actualización exitosa
-```
+```json
 {
   "email": "a@b.com",
   "message": "Successful updated",
