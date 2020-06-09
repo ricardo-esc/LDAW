@@ -41,21 +41,41 @@ Para activar el Virtual Environment, use el siguiente comando:
 ```python
 $ source dolarick/bin/activate
 ```
-Para correr dolarick, usar los siguientes 3 comandos:
-```python
-(dolarick) $ export FLASK_APP=run.py
-(dolarick) $ export FLASK_ENV=development
-(dolarick) $ flask run
 
- * Serving Flask app "run.py" 
- * Environment: development
+Vas a hacer uso de dos terminales.
+En la primera terminal, posicíonate en el carpeta de API.
+Para correr dolarick, usar el siguiente comando:
+```python
+(dolarick) $ python run.py
+
+ * Serving Flask app "main" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
  * Debug mode: on
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
  * Restarting with stat
  * Debugger is active!
- * Debugger PIN: 157-644-835
+ * Debugger PIN: 255-376-821
 ```
-Ingrese al [localhost:500](http://127.0.0.1:5000/) para ver la API
+En la segunda terminal, posicíonate en el carpeta de Cliente
+y corre el siguiente comando:
+
+```python
+(dolarick) $ python run.py
+ * Serving Flask app "main" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 255-376-821
+```
+
+Ingrese al [localhost:80](http://127.0.0.1:80/) para ver la API
+Ingrese al [localhost:5000](http://127.0.0.1:5000/events) para ver la vista cliente
 
 ## Migraciones
 Cada vez que el modelo de la base de datos cambia, es necesario hacer los siguientes comandos:
