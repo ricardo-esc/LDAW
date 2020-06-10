@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 {% block content %}
     {% for event in events %}
@@ -16,11 +17,11 @@
                 </div>
                 <div class="column">
                   <p class="article-content"><strong>Lugar:</strong> {{ event.Lugar }}</p>
-                  <p class="article-content"><strong>Fecha del Evento:</strong> {{ event.Fecha}}</p>
+                  <p class="article-content"><strong>Fecha del Evento:</strong> {{ event.Fecha }}</p>
                 </div>
               </div> 
               <p class="article-content-description">{{ event.Decripcion }}</p>
-              <button type="submit" class="center btn btn-primary"  >Compra tus Boletos</button>
+              <button type="submit" class="center btn btn-primary"> Compra tus Boletos</button>
             </div>
           </form>
           

@@ -223,6 +223,19 @@ def generate_ticket(folio):
     response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
     return response
 
+ 
+@app.route("/BoletoPDF/<int:folio>/borrar", methods=['POST'])
+def borrar_boleto(folio):
+    if "email" in session:
+        post_data={
+            'user_id': session['user_id']
+        }
+        response = requests.post("http://127.0.0.1:5000/Boleto/"+str(folio)+"/borrar",json=post_data)
+        if response.status_code ==200:
+            flash('¡El boleto ha sido eliminado con éxito!', 'success')
+            return redirect(url_for('about'))
+    else:
+        return redirect(url_for('about'))
 
 
 
