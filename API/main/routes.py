@@ -160,6 +160,14 @@ def borrar_usuario():
     flash('Cuenta borrada exitosamente', 'success')
     return redirect(url_for('home'))
 
+@app.route("/boletoPDF", methods=['GET'])
+def boleto():
+    folio = request.json['folio']
+    tickets = Boleto.query.filter_by(folio=int(folio)).first()
+
+    result_tickets = boletoSchema.dump(tickets)
+ 
+    return jsonify(result_tickets)
 
 
 

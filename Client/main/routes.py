@@ -1,11 +1,14 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, abort, jsonify,session
+from flask import render_template, url_for, flash, redirect, request, abort, jsonify,session, render_template, make_response
+import pdfkit
+import flaskpdf
 import requests,json
 from main import app
 from main.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, EventoForm, BoletoForm
 from datetime import datetime
+from flask_http_response import success, result, error
 
 
 @app.route("/")
@@ -174,7 +177,8 @@ def about():
         print(tickets)
 
         return render_template('about.html', title='Mis Boletos', tickets=tickets.json(), events=events.json())
-    return render_template('login.html', title='Login', form=form)
+    else:
+        return redirect(url_for('login'))
 
  
 @app.route("/evento/<int:evento_id>/borrar", methods=['POST'])
@@ -190,14 +194,34 @@ def borrar_evento(evento_id):
     else:
         return redirect(url_for('login'))
 
+@app.route("/BoletoPDF/<int:folio>")
+def boletoPDF(folio):
+   
+    post_data={
+        'user_id':session['user_id'],
+        'folio':folio
+    }
+    ticket =  requests.get("http://127.0.0.1:5000/boletoPDF",json=post_data)
+    events = requests.get("http://127.0.0.1:5000/events")
+       
+    return render_template('boletoSolo.html', title='Tu Boleto', ticket=ticket.json(), events=events.json())
+   
+@app.route('/pdf/<int:folio>')
+def generate_ticket(folio):
 
+    post_data={
+        'folio':folio
+    }
+    ticket =  requests.get("http://127.0.0.1:5000/boletoPDF",json=post_data)
+    events = requests.get("http://127.0.0.1:5000/events")
+    rendered = render_template('boletoSolo.html', title='Tu Boleto', ticket=ticket.json(), events=events.json())
 
+    pdf = pdfkit.from_string(rendered,False)
 
-
-
-
-
-
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+    return response
 
 
 
