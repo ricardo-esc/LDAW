@@ -90,9 +90,14 @@ Cada vez que el modelo de la base de datos cambia, es necesario hacer los siguie
 ## V. API Endpoints
 
 #### GET /events
-Regresa la lista de eventos registrados en Dolarick      
+Regresa la lista de todos los eventos registrados en Dolarick      
 
-Respuesta de ejemplo  [GET /events](http://127.0.0.1:5000/events)
+  Ejemplo de Petición:
+
+```json
+http://localhost:5000/events
+```
+Respuesta de ejemplo:
 
 ```json
 [
@@ -138,9 +143,14 @@ Respuesta de ejemplo  [GET /events](http://127.0.0.1:5000/events)
 
 
 #### GET /user
-Regresa la lista de usuarios registrados en Dolarick      
+Regresa la lista de usuarios registrados en Dolarick   
+   
+ Ejemplo de Petición:
 
-Respuesta de ejemplo  [GET /user](http://127.0.0.1:5000/user)
+```json
+http://localhost:5000/user
+```
+Respuesta de ejemplo:
 
 ```json
 [
@@ -240,10 +250,18 @@ Respuesta de ejemplo  [GET /user](http://127.0.0.1:5000/user)
 ```
 
 
-#### GET /evento/evento_id
-Regresa el evento con el id enviado
+#### GET /evento/<int:evento_id>
+Regresa el evento que coincide con el id enviado
+ 
+Recibe un argumento llamado __evento_id__ tipo ___int___
 
-Respuesta de ejemplo  [GET /evento/1](http://127.0.0.1:5000/evento/1)
+ Ejemplo de Petición:
+
+```json
+http://localhost:5000/evento/1
+```
+Respuesta del ejemplo:
+
 
 ```json
 {
@@ -264,7 +282,12 @@ Respuesta de ejemplo  [GET /evento/1](http://127.0.0.1:5000/evento/1)
 #### GET /Boletos
 Regresa los boletos del Usuario
 
-Respuesta de ejemplo  __GET /Boletos__
+ Ejemplo de Petición:
+
+```json
+http://localhost:5000/Boletos
+```
+Respuesta de ejemplo:
 
 ```json
 [
@@ -291,13 +314,14 @@ Respuesta de ejemplo  __GET /Boletos__
     "idEvento": 1,
     "imagen": "default.jpg",
     "user_id": 1
-  },
-  {
+  }
 ]
 ```
 
 #### POST /register
 Registrar usuario.  
+
+Se envía lo siguiente:
 
 ```json
 {
@@ -311,7 +335,7 @@ Registrar usuario.
     "empresa" : "Tec"
 }
 ```
-Se regresa un mensaje al terminar.
+La API regresa un mensaje al terminar.
 ```json
 [
   {
@@ -333,6 +357,8 @@ En caso de que el usuario ya exista, se envía el siguiente mensaje:
 #### POST /evento/registrar
 Registro de un evento nuevo
 
+Se envía lo siguiente:
+
 ```json
 {
     "Nombre" : "Danna Paola",
@@ -347,15 +373,21 @@ Registro de un evento nuevo
     "empleado" : 1
 }
 ```
-Mensaje de éxito
+La API regresa un mensaje de éxito terminar.
 ```json
 {
   "message": "The event has been registered!"
 }
 ```
-#### POST /evento/comprar/id_evento
+#### POST /evento/comprar/<int:evento_id>
 Compra de un boleto de evento registrado
+  
+Recibe un argumento llamado __evento_id__ tipo ___int___
 
+```
+http://localhost:5000/comprar/1
+```
+Dentro de la API, se selecciona la cantidad de boletos. __cantidad__ es un argumento tipo ___int___
 ```json
 {
   "cantidad" : 1,
@@ -363,7 +395,7 @@ Compra de un boleto de evento registrado
     
 }
 ```
-Mensaje de éxito
+La API regresa un mensaje de éxito terminar.
 ```json
 [
   {
@@ -372,12 +404,16 @@ Mensaje de éxito
 ]
 ```
 #### POST /evento/id/borrar
+Se utiliza para eliminar un evento.
+
+Recibe un argumento tipo __int__ llamado ___user_id___ donde valida si el usuario creó o no el evento.
+
 ```json
 {
   "user_id":1
 }
 ```
-Mensaje de éxito
+Mensaje de éxito al eliminar el evento.
 ```json
 {
   "message": "The event has been deleted!"
@@ -386,11 +422,13 @@ Mensaje de éxito
 En caso de que tu usuario no haya creado ese evento, se despliega el siguiente mensaje
 ```json
 {
-  "message": "You did not crete this event!"
+  "message": "You did not create this event!"
 }
 ```
 #### POST /login
 Realizar un login
+
+Se envían dos argumentos tipo ___string___: __email__ y __password__ los cuales pasan a ser validados.
 
 ```json
 {
@@ -398,7 +436,7 @@ Realizar un login
   "password":"0210"
 }
 ```
-Login exitoso
+API manda mensaje de éxito si el login fue exitoso
 ```json
 {
   "email": "a@b.com",
@@ -407,7 +445,7 @@ Login exitoso
   "username": "ricardo.esc98"
 }
 ```
-Login no exitoso
+API manda mensaje de Login no exitoso si las credenciales son inválidas.
 ```json
 {
   "message": "Invalid credentials",
@@ -416,6 +454,9 @@ Login no exitoso
 
 #### POST /account
 Se utiliza para actualizar la información de la cuenta
+
+Sen envía argumentos de ___email, username___ y ___user_id___
+
 ```json
 {
   "email":"a@b.com",
@@ -423,7 +464,7 @@ Se utiliza para actualizar la información de la cuenta
   "user_id":1
 }
 ```
-Actualización exitosa
+API envía mensajes de actualización exitosa
 ```json
 {
   "email": "a@b.com",
