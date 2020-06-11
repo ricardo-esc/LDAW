@@ -14,7 +14,7 @@
                 </div>
                 <div class="column">
                   <p class="article-content"><strong>Lugar:</strong> {{ event.Lugar }}</p>
-                  <p class="article-content"><strong>Fecha del Evento:</strong> {{ event.Fecha }}</p>
+                  <p class="article-content"><strong>Fecha del Evento:</strong> {{ event.Fecha.strftime('%d/%m/%Y') }}</p>
                 </div>
               </div> 
               <p class="article-content-description">{{ event.Decripcion }}</p>

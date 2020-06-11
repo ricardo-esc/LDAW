@@ -15,7 +15,11 @@ from flask_http_response import success, result, error
 @app.route("/home")
 def home():
     events = requests.get("http://127.0.0.1:5000/events")
-    return render_template('home.html', events=events.json())
+    eventsjson=events.json()
+    for event in eventsjson:
+       event['Fecha']=(datetime.strptime(event['Fecha'], '%Y-%m-%dT%H:%M:%S'))
+       print(event['Fecha'].year)
+    return render_template('home.html', events=eventsjson)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -144,7 +148,13 @@ def new_event():
 @app.route('/evento/<int:evento_id>')
 def evento(evento_id):
     event = requests.get("http://127.0.0.1:5000/evento/"+str(evento_id))
-    return render_template('evento.html', event=event.json())
+    eventjson = event.json()
+    eventjson['Fecha']=(datetime.strptime(eventjson['Fecha'], '%Y-%m-%dT%H:%M:%S'))
+    print(eventjson['Fecha'])
+    return render_template('evento.html', event=eventjson)
+
+
+
     
 
 @app.route('/evento/comprar/<int:evento_id>', methods=['GET', 'POST'])
@@ -174,13 +184,15 @@ def about():
         }
         tickets =  requests.get("http://127.0.0.1:5000/boletos",json=post_data)
         events = requests.get("http://127.0.0.1:5000/events")
-        print(tickets)
 
         return render_template('about.html', title='Mis Boletos', tickets=tickets.json(), events=events.json())
     else:
         return redirect(url_for('login'))
 
- 
+
+
+
+
 @app.route("/evento/<int:evento_id>/borrar", methods=['POST'])
 def borrar_evento(evento_id):
     if "email" in session:
