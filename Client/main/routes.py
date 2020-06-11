@@ -154,7 +154,6 @@ def evento(evento_id):
     return render_template('evento.html', event=eventjson)
 
 
-
     
 
 @app.route('/evento/comprar/<int:evento_id>', methods=['GET', 'POST'])
@@ -172,7 +171,10 @@ def comprar_evento(evento_id):
                 return redirect(url_for('home'))
         else:
             event = requests.get("http://127.0.0.1:5000/evento/"+str(evento_id))
-            return render_template('boleto.html', event=event.json(),form=form)
+            eventjson = event.json()
+            eventjson['Fecha']=(datetime.strptime(eventjson['Fecha'], '%Y-%m-%dT%H:%M:%S'))
+            print(eventjson['Fecha'])
+            return render_template('boleto.html', event=eventjson,form=form)
     else:
         return redirect(url_for('login'))
 
@@ -184,10 +186,14 @@ def about():
         }
         tickets =  requests.get("http://127.0.0.1:5000/boletos",json=post_data)
         events = requests.get("http://127.0.0.1:5000/events")
-
-        return render_template('about.html', title='Mis Boletos', tickets=tickets.json(), events=events.json())
+        eventsjson=events.json()
+        for event in eventsjson:
+            event['Fecha']=(datetime.strptime(event['Fecha'], '%Y-%m-%dT%H:%M:%S'))
+            print(event['Fecha'].year)
+        return render_template('about.html', title='Mis Boletos', tickets=tickets.json(), events=eventsjson)
     else:
         return redirect(url_for('login'))
+
 
 
 
@@ -215,8 +221,11 @@ def boletoPDF(folio):
     }
     ticket =  requests.get("http://127.0.0.1:5000/boletoPDF",json=post_data)
     events = requests.get("http://127.0.0.1:5000/events")
-       
-    return render_template('boletoSolo.html', title='Tu Boleto', ticket=ticket.json(), events=events.json())
+    eventsjson=events.json()
+    for event in eventsjson:
+        event['Fecha']=(datetime.strptime(event['Fecha'], '%Y-%m-%dT%H:%M:%S'))
+        print(event['Fecha'].year)   
+    return render_template('boletoSolo.html', title='Tu Boleto', ticket=ticket.json(), events=eventsjson)
    
 @app.route('/pdf/<int:folio>')
 def generate_ticket(folio):
@@ -226,7 +235,11 @@ def generate_ticket(folio):
     }
     ticket =  requests.get("http://127.0.0.1:5000/boletoPDF",json=post_data)
     events = requests.get("http://127.0.0.1:5000/events")
-    rendered = render_template('boletoSolo.html', title='Tu Boleto', ticket=ticket.json(), events=events.json())
+    eventsjson=events.json()
+    for event in eventsjson:
+        event['Fecha']=(datetime.strptime(event['Fecha'], '%Y-%m-%dT%H:%M:%S'))
+        print(event['Fecha'].year) 
+    rendered = render_template('boletoSolo.html', title='Tu Boleto', ticket=ticket.json(), events=eventsjson)
 
     pdf = pdfkit.from_string(rendered,False)
 

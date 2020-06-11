@@ -8,12 +8,14 @@ from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
 from flask import session
 import flaskpdf
+from flask_qrcode import QRcode
 
 
 app = Flask(__name__)
 
 app.secret_key = "hello"
 flaskpdf.init_app(app)
+QRcode(app)
 
 
 from main import routes
