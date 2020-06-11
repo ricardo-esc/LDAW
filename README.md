@@ -16,7 +16,7 @@ Dolarick es una API REST diseñada para la venta de boletos en línea para event
 * Doménica Rentería Berrospe
 * Eduardo Gonzalez Melgoza
 
-Esta API hace uso del servicio web de Google Maps.
+Esta API hace uso del servicio web de [Google Maps](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete)
 
 ## II. Pre-requisitos
 1) Python   
